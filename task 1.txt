@@ -1,0 +1,13 @@
+!pip install pyopenms
+# import the package to use 
+import pyopenms
+seq = AASequence.fromString("VAKA")
+print("the mass of the amino acid seq(peptide)= ", seq.getMonoWeight())
+temp = 0
+for aa in seq:
+  print("the mass of", aa.getName(), "= ", aa.getMonoWeight())
+  temp = temp + aa.getMonoWeight()
+print("the mass(V) + mass(A) + mass(K) + mass(A) = ", temp)
+print()
+print("Observation:\nmass(VAKA) < mass(V) + mass(A) + mass(K) + mass(A)\nThe mass of a peptide is less than the sum of the masses of its constituent amino acids.")
+print("Explanation:\nDuring the association of amino acids with each other to form the peptide,\na loss of water occurred, which affected the mass of the peptide in what\nis known as the condensation process (dehydration reaction).")

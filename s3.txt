@@ -1,0 +1,50 @@
+from pyopenms import *
+# create amino acid seq(peptide)...
+seq = AASequence.fromString("DFPIANGER")
+print("get the prefix of the peptide: ")
+pre = seq.getPrefix(5)
+print(pre)
+print("get the suffix of the peptide: ")
+suf = seq.getSuffix(4)
+print(suf)
+print("concat 2 peptide: ")
+print(seq + seq)
+print("get the full weight of the peptide: ")
+print(seq.getMonoWeight())
+print("get the charged mass: ")
+print(seq.getMonoWeight(Residue.ResidueType.Full, 2))
+print("get the mz: ")
+print(seq.getMonoWeight(Residue.ResidueType.Full, 2) / 2.0)
+print("the formula of the peptide: ")
+print(seq.getFormula())
+print("the formula of the suffix: ")
+print(seq.getSuffix(3).getFormula(Residue.ResidueType.YIon, 2))
+print("the mono weight of the peptide: ")
+print(seq.getSuffix(3).getMonoWeight(Residue.ResidueType.YIon, 2))
+print("the mz of the peptide: ")
+print(seq.getSuffix(3).getMonoWeight(Residue.ResidueType.YIon, 2)/2.0)
+print("the modification: ")
+print(AASequence.fromString("DFPIAM(UniMod:35)GER"))
+###FASTA File####
+print()
+f1 = FASTAEntry()
+f1.sequence = "DFPIAMGER"
+f1.identifier ="ABC"
+f1.description="abcdefg"
+f2 = FASTAEntry()
+f2.sequence = "DFPIAMGER"
+f2.identifier ="ABC"
+f2.description="abcdefg"
+f3 = FASTAEntry()
+f3.sequence = "DFPIAMGER"
+f3.identifier ="ABC"
+f3.description="abcdefg"
+lis=[f1,f2,f3]
+fasta=FASTAFile()
+fasta.store("FASTAFILE.fasta", lis)
+print("reading from fasta file: ")
+entries = [] #to load data on it...
+fasta=FASTAFile()
+fasta.load("FASTAFILE.fasta", entries)
+for e in entries:
+  print(e.identifier," ", e.sequence)
