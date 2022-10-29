@@ -1,0 +1,61 @@
+!pip install pyopenms
+
+# import the package to use 
+import pyopenms
+pyopenms.Constants.AVOGADRO
+
+# get access to all of pyopenms...
+from pyopenms import *
+
+# create object from ElementDB() to interact with elements...
+elements = ElementDB()
+
+# check the existence of Oxygen in the DB, (elements in a capital case)...
+print("Is oxygen existes? ", elements.hasElement("O"))
+
+# get the element...
+oxygen = elements.getElement("O")
+
+# get info about the element...
+print("the name of the element: ", oxygen.getName())   
+print("the symbol of the element: ", oxygen.getSymbol()) 
+print("the mass of the element: ", oxygen.getMonoWeight())
+ 
+# get the isotopes of oxygen, store them in dictionary...
+dic = {"mass":[],"abundance":[]}
+iso = oxygen.getIsotopeDistribution()
+for x in iso.getContainer():
+  print("the mass of the isotope is: ", x.getMZ())
+  print("the abundance of the isotope is: ", x.getIntensity() * 100)
+  dic["mass"].append(x.getMZ())
+  dic["abundance"].append(x.getIntensity() * 100)
+
+# dealing with molecular formula...
+print()
+methanol = EmpiricalFormula("CH3OH")
+ethanol = EmpiricalFormula("CH2") + methanol
+print("Ethanol formula: ", ethanol.toString())
+print("the compositions of ethanol: ", ethanol.getElementalComposition())
+
+######## Amino Acids ##########
+print()
+# create object from ResidueDB() class...
+aa = ResidueDB()
+lys = aa.getResidue("Lysine")
+
+# get info about the aa...
+print("the name of the amino acid is: ", lys.getName())
+print("its 3letter code is: ", lys.getThreeLetterCode())
+print("its 1letter code is: ", lys.getOneLetterCode())
+print("its mass is: ", lys.getMonoWeight())
+print("its formula is: ", lys.getFormula().toString())
+
+
+######### Ribonuclotides ######
+print()
+# create object from RibonuclotideDB() class...
+r = RibonucleotideDB()
+a = r.getRibonucleotide(b"A")
+print("the name of nuclotide ", a.getName())
+print("its mass ", a.getMonoMass())
+print("its code ", a.getCode())
