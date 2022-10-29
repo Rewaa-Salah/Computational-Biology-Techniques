@@ -1,0 +1,66 @@
+from google.colab import files
+
+uploaded = files.upload()
+
+for fn in uploaded.keys():
+  print('User uploaded file "{name}" with length {length} bytes'.format(
+      name=fn, length=len(uploaded[fn])))
+
+# for reading xml file...
+with open ("bookstore.xml") as b:
+  for line in b:
+    print(line.split())
+
+# parse the xml file to interact...
+print()
+import xml.etree.ElementTree as e
+tree = e.parse("bookstore.xml")
+t = tree.getroot()
+print("the root is: ", t.tag) # got the root...
+print()
+# print tags & its attributes...
+for subtag in t:
+  print("Tag: ", subtag.tag, "   its attribute: ", subtag.attrib)
+print()
+# get part from xml file...
+print("the text of 2nd line in 1st element is: ", t[0][1].text) #get the text of 2nd line in 1st element...
+print()
+# get all "title" tags...
+print("all \"title\" tags: ")
+for title in t.iter("title"):
+  print(title.text)
+print()
+# write in text file...
+f = open("test.txt", "w")
+f.write("a,b,c,d,e,f,g,h,i,g,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z")
+f.close()
+print()
+# read from text file...
+print("the content of the file is: ")
+fil = open("test.txt","r")
+print(fil.read())
+fil.close()
+print()
+#Binary files...
+bin = open("test.bin","wb")
+bin.write(b"a,b,c,d,e,f,g,h,i,g,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z")
+bin.close()
+#reading...
+print("the content of the file is: ")
+binary = open("test.bin","rb")
+print(binary.read())
+binary.close()
+print()
+# writing list in binary file...
+ls = [1,2,3,4,5]
+temp = bytearray(ls)
+b = open("list.bin", "wb")
+b.write(temp)
+b.close()
+#reading the list
+print()
+print("the content of the file is: ")
+l=[]
+binary = open("list.bin","rb")
+print(list(binary.read()))
+binary.close()
