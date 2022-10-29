@@ -1,1 +1,1 @@
-# Computational Biology Techniques I
+# Computational Biology Techniques (sections)
